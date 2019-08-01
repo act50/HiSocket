@@ -7,6 +7,7 @@
 
 using HiFramework;
 using System;
+using System.Collections.Generic;
 using System.Net;
 
 namespace HiSocket.Tcp
@@ -22,11 +23,6 @@ namespace HiSocket.Tcp
         System.Net.Sockets.Socket Socket { get; }
 
         /// <summary>
-        /// if connected
-        /// </summary>
-        bool IsConnected { get; }
-
-        /// <summary>
         /// Send buffer
         /// If disconnect, user can operate the remain data
         /// </summary>
@@ -40,29 +36,29 @@ namespace HiSocket.Tcp
         /// <summary>
         /// trigger when connecting
         /// </summary>
-        event Action OnConnecting;
+        event Action<ITcpSocket> OnConnecting;
 
         /// <summary>
         /// trigger when connected
         /// </summary>
-        event Action OnConnected;
+        event Action<ITcpSocket> OnConnected;
 
         /// <summary>
-        /// trigger when disconnected when user initiate close socket
+        /// Trigger when disconnecte
         /// </summary>
-        event Action OnDisconnected;
+        event Action<ITcpSocket> OnDisconnected; 
 
         /// <summary>
         /// trigger when get bytes from server
         /// use .net socket api
         /// </summary>
-        event Action<byte[]> OnReceiveBytes;
+        event Action<ITcpSocket, byte[]> OnReceiveBytes;
 
         /// <summary>
         /// trigger when send bytes to server
         /// use .net socket api
         /// </summary>
-        event Action<byte[]> OnSendBytes;
+        event Action<ITcpSocket, byte[]> OnSendBytes;
 
         /// <summary>
         /// Connect to server
@@ -85,6 +81,13 @@ namespace HiSocket.Tcp
         void Connect(IPAddress ip, int port);
 
         /// <summary>
+        /// Connect to server
+        /// </summary>
+        /// <param name="www"></param>
+        /// <param name="port"></param>
+        void ConnectWWW(string www, int port);
+
+        /// <summary>
         /// Send bytes to server
         /// </summary>
         /// <param name="bytes"></param>
@@ -93,10 +96,10 @@ namespace HiSocket.Tcp
         /// <summary>
         /// Send bytes to server
         /// </summary>
-        /// <param name="source"></param>
+        /// <param name="bytes"></param>
         /// <param name="index"></param>
         /// <param name="length"></param>
-        void Send(byte[] source, int index, int length);
+        void Send(byte[] bytes, int index, int length);
 
         /// <summary>
         /// Disconnect
