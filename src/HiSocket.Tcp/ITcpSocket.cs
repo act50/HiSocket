@@ -23,6 +23,11 @@ namespace HiSocket.Tcp
         System.Net.Sockets.Socket Socket { get; }
 
         /// <summary>
+        /// if connected(should use heart beat check if server disconnect)
+        /// </summary>
+        bool IsConnected { get; }
+
+        /// <summary>
         /// Send buffer
         /// If disconnect, user can operate the remain data
         /// </summary>
@@ -46,7 +51,7 @@ namespace HiSocket.Tcp
         /// <summary>
         /// Trigger when disconnecte
         /// </summary>
-        event Action<ITcpSocket> OnDisconnected; 
+        event Action<ITcpSocket> OnDisconnected;
 
         /// <summary>
         /// trigger when get bytes from server
